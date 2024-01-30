@@ -1,7 +1,7 @@
-import MyComponent from './MyComponent'; // import? 모듈 불러오기
+import { Counter } from './Counter';
 
 function App() {
-  return <MyComponent favoriteNumber={9}>민쥐</MyComponent>;
+  return <Counter />;
 }
 
 export default App;
