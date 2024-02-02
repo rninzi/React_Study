@@ -1,7 +1,7 @@
-import { Say } from './Say';
+import EventPractice from './EventPractice';
 
-function App() {
-  return <Say />;
+function App () {
+  return <EventPractice/>;
 }
 
 export default App;
