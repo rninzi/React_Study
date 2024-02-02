@@ -52,7 +52,7 @@ class EventPractice extends Component {
           placeholder="아무거나 입력해 보세요"
           value={this.state.message}
           onChange={this.handleChange}
-          onKeyPress={this.handleKeyPress}
+          onKeyDown={this.handleKeyPress} // onKeyPress deprecated 사유로 onKeyUp or onKeyDown 사용할 것.
         />
         <button onClick={this.handleClick}>확인</button>
       </div>
