@@ -1,3 +1,4 @@
+import React from 'react';
 import { Component } from 'react';
 import './ValidationSample.css';
 
@@ -7,6 +8,9 @@ export class ValidationSample extends Component {
     clicked: false,
     validated: false,
   };
+
+  // ref 설정 방식 2 - createRef 사용
+  input = React.createRef();
 
   handleChange = (e) => {
     this.setState({
@@ -19,14 +23,15 @@ export class ValidationSample extends Component {
       clicked: true,
       validated: this.state.password === '0000'
     });
-    this.input.focus();
+    this.input.current.focus();
   };
 
   render () {
     return (
       <div>
         <input
-          ref={(ref) => this.input = ref}
+          // ref={(ref)=>this.input=ref} // ref 설정 방식 1 - ref 콜백함수 사용
+          ref={this.input}
           type="password"
           value={this.state.password}
           onChange={this.handleChange}
@@ -35,4 +40,4 @@ export class ValidationSample extends Component {
       </div>
     );
   }
-}
+};
