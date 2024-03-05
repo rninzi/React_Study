@@ -1,8 +1,39 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Info = () => {
   const [name, setName] = useState('');
   const [nickname, setNickname] = useState('');
+
+  /* useEffect(() => {
+    console.log('렌더링이 완료되었습니다!');
+    console.log({
+      name,
+      nickname,
+    });
+  }); */
+
+  /* useEffect(() => {
+    console.log('마운트될 때만 실행됩니다. ');
+  }, []); */
+
+  /*
+  useEffect(() => {
+    console.log('effect');
+    console.log(name);
+    return () => { // 뒷정리 함수
+      console.log('cleanup');
+      console.log(name);
+    };
+  }, [name]);
+  */
+
+  // 언마운트될 때만 뒷정리 함수 사용하기 -> useEffect 함수 두 번째 파라미터에 비어있는 배열 넣기
+  useEffect(() => {
+    console.log('effect');
+    return () => {
+      console.log('unmount');
+    };
+  }, []);
 
   const onChangeName = e => {
     setName(e.target.value);
