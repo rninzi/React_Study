@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 
 const getAverage = numbers => {
   console.log('평균값 게산 중..');
@@ -11,14 +11,14 @@ export const Average = () => {
   const [list, setList] = useState([]);
   const [number, setNumber] = useState('');
 
-  const onChange = e => {
+  const onChange = useCallback(e => {
     setNumber(e.target.value);
-  };
-  const onInsert = e => {
+  }, []); // 컴포넌트가 처음 렌더링될 때만 함수 생성 (기존 값 조회 없이 바로 설정만 하기에 빈 배열이어도 상관X)
+  const onInsert = useCallback(() => {
     const nextList = list.concat(parseInt(number));
     setList(nextList);
     setNumber('');
-  };
+  }, [number, list]); // number 혹은 list가 바뀌었을 때만 함수 생성 (기존의 number, list 조회해 nextList 생성하기때문에 배열 안에 number와 list가 꼭 필요)
 
   const avg = useMemo(() => getAverage(list), [list]); // list 배열의 내용이 바뀔 때만 getAverage() 호출위해 useMemo()로 최적화
 
