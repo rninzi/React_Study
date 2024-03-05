@@ -1,8 +1,9 @@
-function App () {
+import { Info } from './Info';
+
+const App = () => {
   return (
-    <div>
-    </div>
+    <Info />
   );
-}
+};
 
 export default App;
