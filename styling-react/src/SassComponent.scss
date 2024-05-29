@@ -1,8 +1,11 @@
-@import './styles/utils';
-
-.SassComponent{
+.SassComponent {
   display: flex;
-  .box { // 일반 CSS ver. => .SassComponent .box
+  background: $oc-gray-2;
+  @include media('<768px') {
+    background: $oc-gray-9;
+  }
+  .box {
+    // 일반 CSS ver. => .SassComponent .box
     background: red;
     cursor: pointer;
     transition: all 0.3s ease-in;
