@@ -5,6 +5,15 @@ const Box = styled.div`
   background: ${(props) => props.color || 'blue'};
   padding: 1rem;
   display: flex;
+  /* default는 가로 크기 1024px에 가운데 정렬, 가로 크기가 작아짐에 따라 크기를 줄이고 768px 미만이 되면 width를 꽉 채운다. */
+  width: 1024px;
+  margin: 0 auto;
+  @media (max-width: 1024px) {
+    width: 768px;
+  }
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Button = styled.button`
