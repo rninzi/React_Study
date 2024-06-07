@@ -477,7 +477,9 @@ module.exports = function (webpackEnv) {
                 sourceMap: isEnvProduction
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
-                modules: true,
+                modules: {
+                    localIdentName: '[name]__[local]___[hash:base64:5]',
+                },
               }),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
@@ -511,7 +513,9 @@ module.exports = function (webpackEnv) {
                 sourceMap: isEnvProduction
                   ? shouldUseSourceMap
                   : isEnvDevelopment,
-                modules: true,
+                modules: {
+                  localIdentName: '[name]__[local]___[hash:base64:5]',
+                },
               }).concat({
                 loader: require.resolve('sass-loader'),
                 options: {
