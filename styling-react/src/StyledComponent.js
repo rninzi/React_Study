@@ -18,7 +18,7 @@ const media = Object.keys(sizes).reduce((acc, label) => {
 
 const Box = styled.div`
   /* props로 넣어준 값을 직접 전달해줄 수 있다 */
-  background: ${(props) => props.color || 'blue'};
+  background: ${({color}) => color || 'blue'};
   padding: 1rem;
   display: flex;
   /* default는 가로 크기 1024px에 가운데 정렬, 가로 크기가 작아짐에 따라 크기를 줄이고 768px 미만이 되면 width를 꽉 채운다. */
