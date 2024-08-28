@@ -51,6 +51,7 @@ const App = () => {
     (id) => {
       setData(
         produce(data, (draft) => {
+          // onRemove의 경우 배열 내장 함수 filter를 사용하는 것이 코드가 더 깔끔하기에 굳이 immer를 적용할 필요가 없다. -> immer는 불변성을 유지하는 코드가 복잡할 때만 사용해도 충분하다.
           draft.array.splice(
             draft.array.findIndex((info) => info.id !== id),
             1
