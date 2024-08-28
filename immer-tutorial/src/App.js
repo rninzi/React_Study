@@ -7,17 +7,14 @@ const App = () => {
   const [data, setData] = useState({ array: [], uselessValue: null });
 
   // input 수정을 위한 함수
-  const onChange = useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setForm(
-        produce(form, (draft) => {
-          draft[name] = value;
-        })
-      );
-    },
-    [form]
-  );
+  const onChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setForm(
+      produce((draft) => {
+        draft[name] = value;
+      })
+    );
+  }, []);
 
   // form 등록을 위한 함수
   const onSubmit = useCallback(
@@ -31,7 +28,7 @@ const App = () => {
 
       // array에 새 항목 등록
       setData(
-        produce(data, (draft) => {
+        produce((draft) => {
           draft.array.push(info);
         })
       );
@@ -43,24 +40,21 @@ const App = () => {
       });
       nextId.current += 1;
     },
-    [data, form.name, form.username]
+    [form.name, form.username]
   );
 
   // 항목을 삭제하는 함수
-  const onRemove = useCallback(
-    (id) => {
-      setData(
-        produce(data, (draft) => {
-          // onRemove의 경우 배열 내장 함수 filter를 사용하는 것이 코드가 더 깔끔하기에 굳이 immer를 적용할 필요가 없다. -> immer는 불변성을 유지하는 코드가 복잡할 때만 사용해도 충분하다.
-          draft.array.splice(
-            draft.array.findIndex((info) => info.id !== id),
-            1
-          );
-        })
-      );
-    },
-    [data]
-  );
+  const onRemove = useCallback((id) => {
+    setData(
+      produce((draft) => {
+        // onRemove의 경우 배열 내장 함수 filter를 사용하는 것이 코드가 더 깔끔하기에 굳이 immer를 적용할 필요가 없다. -> immer는 불변성을 유지하는 코드가 복잡할 때만 사용해도 충분하다.
+        draft.array.splice(
+          draft.array.findIndex((info) => info.id !== id),
+          1
+        );
+      })
+    );
+  }, []);
 
   return (
     <div>
