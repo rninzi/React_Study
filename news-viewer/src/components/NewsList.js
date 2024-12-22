@@ -16,13 +16,6 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const sampleArticle = {
-  title: '제목',
-  description: '내용',
-  url: 'https://google.com',
-  urlToImage: 'https://via.placeholder.com/160',
-};
-
 const NewsList = () => {
   const [articles, setArticles] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -49,7 +42,7 @@ const NewsList = () => {
     return <NewsListBlock>대기 중...</NewsListBlock>;
   }
 
-  // 아직 articles 값이 설정되지 않았을 때
+  // 아직 articles 값이 설정되지 않았을 때 (map 사용 전에 검증 필요)
   if (!articles) {
     return null;
   }
