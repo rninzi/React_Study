@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "moduleResolution": "node" // Node.js 스타일 모듈 해석 방식 → 라이브러리 절대 경로로 import를 위한 추가
+    "moduleResolution": "node"
   }
 }
