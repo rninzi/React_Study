@@ -7,6 +7,7 @@
 > 기술 카테고리 진입 시 화면
 
 1. axios로 News API 호출해 데이터 받아오기
+   - ⚠️ 24.12 기준 NEWS API로 articles 호출 시 유효한 국가 옵션이 US로 한정됨
 2. 뉴스 뷰어 UI(title, description, image) 제작 후 데이터 연동하기
 3. 뉴스 카테고리 기능 구현하기
 4. 리액트 라우터 적용하기
