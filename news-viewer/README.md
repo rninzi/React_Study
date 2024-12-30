@@ -2,7 +2,11 @@
 
 ## 기능 설명
 
+<img width="1510" alt="Screenshot 2024-12-28 at 18 04 49" src="https://github.com/user-attachments/assets/c7cfb852-c487-4b7e-a2d8-f2b53f3df66c" />
+
 > 메인 화면
+
+<img width="1512" alt="Screenshot 2024-12-26 at 22 15 16" src="https://github.com/user-attachments/assets/f2e897b3-90fc-4f70-919c-a5c606b9230a" />
 
 > 기술 카테고리 진입 시 화면
 
