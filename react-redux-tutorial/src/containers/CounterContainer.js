@@ -1,20 +1,20 @@
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Counter from '../components/Counter';
 import { increase, decrease } from '../modules/counter';
 
-const CounterContainer = ({ number, increase, decrease }) => {
+const CounterContainer = () => {
+  // useSelector 사용 시 connect를 사용하지 않고도 리덕스의 상태 조회 가능
+  const number = useSelector((state) => state.counter.number);
+
+  // 액션 디스패치 (컴포넌트 내부에서 스토어의 내장 함수 dispatch를 사용 가능하게 함)
+  const dispatch = useDispatch();
   return (
-    <Counter number={number} onIncrease={increase} onDecrease={decrease} />
+    <Counter
+      number={number}
+      onIncrease={() => dispatch(increase())}
+      onDecrease={() => dispatch(decrease())}
+    />
   );
 };
 
-export default connect(
-  (state) => ({
-    number: state.counter.number,
-  }),
-  // 액션 생성 함수로 이뤄진 객체 형태로 넣어줘도 된다. 이때 connect 함수 내부적으로 bindActionCreators 작업을 대신해준다.
-  {
-    increase,
-    decrease,
-  },
-)(CounterContainer);
+export default CounterContainer;
