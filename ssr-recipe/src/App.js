@@ -12,7 +12,7 @@ function App() {
       <Routes>
         <Route path="/red" Component={RedPage} />
         <Route path="/blue" Component={BluePage} />
-        <Route path="/users" Component={UsersPage} />
+        <Route path="/users/*" Component={UsersPage} />
       </Routes>
     </div>
   );
