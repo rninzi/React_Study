@@ -7,8 +7,9 @@ import fs from 'fs';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { thunk } from 'redux-thunk';
-import rootReducer from './modules';
+import rootReducer, { rootSaga } from './modules';
 import PreloadContext from './lib/PreloadContext';
+import createSagaMiddleware, { END } from 'redux-saga';
 
 // asset-manifest.json 파일 경로들을 조회합니다.
 const manifest = JSON.parse(
@@ -50,7 +51,15 @@ const app = express();
 const serverRender = async (req, res, next) => {
   // 이 함수는 404가 떠야 하는 상황에 404를 띄우지 않고 서버 사이드 렌더링을 해 줍니다.
   const context = {};
-  const store = createStore(rootReducer, applyMiddleware(thunk));
+  const sagaMiddleware = createSagaMiddleware();
+
+  const store = createStore(
+    rootReducer,
+    applyMiddleware(thunk, sagaMiddleware)
+  );
+
+  // sagaMiddleware로 만든 Task를 Promise로 변환 (별도 작업이 없다면 Promise가 끝나지 않는다. -> 루트 사가에서 액션을 끊임없이 모니터링하기 때문, END로 Promise 종료 가능)
+  const sagaPromise = sagaMiddleware.run(rootSaga).toPromise;
 
   const preloadContext = {
     done: false,
@@ -69,7 +78,9 @@ const serverRender = async (req, res, next) => {
   // *renderToStaticMarkup -> 리액트를 사용해 정적인 페이지를 만들 때 사용, 클라이언트 쪽에서 HTML DOM 인터랙션 지원 어려움.
   // 현재는 Preloader로 넣어준 함수를 호출하기 위해 사용하는 것 (이 함수의 처리 속도가 renderToString보다 좀 더 빠르다.)
   ReactDOMServer.renderToStaticMarkup(jsx); // renderToStaticMarkup으로 한번 렌더링합니다.
+  store.dispatch(END); // redux-saga의 END 액션을 모니터링하는 사가들이 모두 종료됩니다.
   try {
+    await sagaPromise; // 기존에 진행 중이던 사가들이 모두 끝날 때까지 기다립니다.
     await Promise.all(preloadContext.promises); // 모든 프로미스를 기다립니다.
   } catch (e) {
     return res.status(500);
