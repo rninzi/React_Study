@@ -1,11 +1,20 @@
-import { json } from '@remix-run/node';
-import { Link, useLoaderData } from '@remix-run/react';
-import { getStories } from '../lib/api';
+import { json, ActionFunctionArgs } from '@remix-run/node';
+import { Link, useLoaderData, Form, useNavigation } from '@remix-run/react';
+import { createStory, getStories } from '../lib/api';
+import { useRef, useEffect } from 'react';
 
 export const loader = async () => {
   const stories = await getStories();
   return json(stories);
 };
+
+export async function action({ request }: ActionFunctionArgs) {
+  const formData = await request.formData();
+  const title = formData.get('title');
+  const body = formData.get('body');
+  const story = await createStory({ title, body });
+  return story;
+}
 
 interface Story {
   id: number;
@@ -15,6 +24,15 @@ interface Story {
 
 export default function Stories() {
   const stories: Story[] = useLoaderData();
+  const transition = useNavigation();
+
+  const ref = useRef<HTMLFormElement>(null);
+  useEffect(() => {
+    if (transition.state === 'submitting') {
+      //  ref.current 값이 유효할 때에만 reset 함수를 호출
+      ref.current?.reset();
+    }
+  }, [transition.state]);
 
   return (
     <div>
@@ -26,6 +44,15 @@ export default function Stories() {
           </li>
         ))}
       </ul>
+      <Form method="post" ref={ref} action="/stories">
+        <div className="flex flex-col gap-1 w-80">
+          <input type="text" name="title" placeholder="제목을 입력하세요..." />
+          <textarea name="body" placeholder="이야기를 입력하세요..." />
+          <button type="submit">
+            {transition.state === 'submitting' ? '등록 중...' : '등록'}
+          </button>
+        </div>
+      </Form>
     </div>
   );
 }
