@@ -1,5 +1,11 @@
 import { json, ActionFunctionArgs } from '@remix-run/node';
-import { Link, useLoaderData, Form, useNavigation } from '@remix-run/react';
+import {
+  Link,
+  useLoaderData,
+  Form,
+  useNavigation,
+  redirect,
+} from '@remix-run/react';
 import { createStory, getStories } from '../lib/api';
 import { useRef, useEffect } from 'react';
 
@@ -13,10 +19,10 @@ export async function action({ request }: ActionFunctionArgs) {
   const title = formData.get('title');
   const body = formData.get('body');
   const story = await createStory({ title, body });
-  return story;
+  return redirect(`/stories/${story.id}`);
 }
 
-interface Story {
+export interface Story {
   id: number;
   title: string;
   body: string;
