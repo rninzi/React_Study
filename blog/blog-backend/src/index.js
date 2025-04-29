@@ -10,7 +10,10 @@ app.use((ctx, next) => {
     ctx.status = 401; // Unauthorized
     return;
   }
-  next();
+  // next 함수를 호출하면 Promise를 반환 (다음에 처리해야 할 미들웨어가 끝나야 완료됨) -> Koa와 Express의 차이점
+  next().then(() => {
+    console.log('END');
+  });
 });
 
 // 미들웨어는 app.use를 사용해 등록되는 순서대로 처리
