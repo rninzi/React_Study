@@ -7,7 +7,7 @@ module.exports = defineConfig([
   {
     files: ['**/*.{js,mjs,cjs}'],
     languageOptions: {
-      sourceType: 'commonjs',
+      sourceType: 'module',
       globals: globals.node,
     },
     rules: {
