@@ -40,7 +40,7 @@ export const list = async ctx => {
   GET /api/posts/:id 
 */
 export const read = async ctx => {
-  const {id} = ctx.params;
+  const { id } = ctx.params;
   try{
     const post = await Post.findById(id).exec();
     if(!post) {
@@ -52,6 +52,18 @@ export const read = async ctx => {
   }
 };
 
-export const remove = ctx => {};
+export const remove = async ctx => {
+  const { id } = ctx.params;
+  try{
+    const post = await Post.findByIdAndDelete(id).exec();
+    if (!post) {
+      ctx.status = 404;
+      return;
+    }
+    ctx.status = 204; // No Content (성공하기는 했지만 응답할 데이터는 없음)
+  } catch (e) {
+    ctx.throw(500, e);
+  }
+};
 
 export const update = ctx => {};
