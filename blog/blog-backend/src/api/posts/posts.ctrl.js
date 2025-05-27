@@ -57,7 +57,8 @@ export const write = async ctx => {
 */
 export const list = async ctx => {
   try {
-    const posts = await Post.find().exec();
+    // sort(key: value) -> value가 1이면 오름차순, -1이면 내림차순 정렬
+    const posts = await Post.find().sort({ _id: -1 }).exec();
     ctx.body = posts;
   } catch (e) {
     ctx.throw(500, e);
