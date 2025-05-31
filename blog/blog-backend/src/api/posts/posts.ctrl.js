@@ -56,9 +56,20 @@ export const write = async ctx => {
   GET /api/posts
 */
 export const list = async ctx => {
+  const page = parseInt(ctx.query.page || '1', 10);
+
+  if (page < 1) {
+    ctx.status = 400;
+    return;
+  }
+
   try {
     // sort(key: value) -> value가 1이면 오름차순, -1이면 내림차순 정렬
-    const posts = await Post.find().sort({ _id: -1 }).limit(10).exec();
+    const posts = await Post.find()
+      .sort({ _id: -1 })
+      .limit(10)
+      .skip((page - 1) * 10)
+      .exec();
     ctx.body = posts;
   } catch (e) {
     ctx.throw(500, e);
