@@ -42,6 +42,7 @@ export const write = async ctx => {
     title,
     body,
     tags,
+    user: ctx.state.user,
   });
   try {
     // 데이터베이스에 저장 요청
