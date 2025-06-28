@@ -30,6 +30,7 @@ router.use('/api', api.routes()); // api 라우트 적용
 // 라우터 적용 전에 bodyParser 적용
 // bodyParser: HTTP 메소드의 Request Body에 JSON 형식으로 데이터를 넣어주면, 이를 파싱해 서버에서 사용할 수 있게 함
 app.use(bodyParser());
+// app에 router 미들웨어를 적용하기 전에 jwtMiddleware를 적용해야 함
 app.use(jwtMiddleware);
 
 // app 인스턴스에 라우터 적용
