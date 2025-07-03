@@ -1,10 +1,11 @@
 import { Outlet } from 'react-router-dom';
+import Button from '../components/common/Button';
 
 const PostListPage = () => {
   return (
     <div>
-      포스트 리스트
       <Outlet />
+      <Button>버튼</Button>
     </div>
   );
 };
