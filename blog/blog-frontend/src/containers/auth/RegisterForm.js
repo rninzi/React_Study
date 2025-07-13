@@ -29,6 +29,11 @@ const RegisterForm = () => {
       setError('빈 칸을 모두 입력하세요.');
       return;
     }
+    // 아이디(계정명)가 최소, 최대 길이 내에 부합하지 않는 경우
+    if (!/^.{3,20}$/.test(username)) {
+      setError('계정명은 최소 3자, 최대 20자까지 가능합니다.');
+      return;
+    }
     // 비밀번호가 일치하지 않는다면
     if (password !== passwordConfirm) {
       setError('비밀번호가 일치하지 않습니다.');
