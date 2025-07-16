@@ -53,6 +53,11 @@ const RegisterForm = () => {
     if (user) {
       navigate('/'); // 홈 화면으로 이동
     }
+    try {
+      localStorage.setItem('user', JSON.stringify(user));
+    } catch (e) {
+      console.log('localStorage is not working');
+    }
   }, [navigate, user]);
 
   // 컴포넌트가 처음 렌더링될 때 form을 초기화함
