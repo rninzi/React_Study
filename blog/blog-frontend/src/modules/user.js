@@ -14,8 +14,20 @@ export const tempSetUser = createAction(TEMP_SET_USER, (user) => user);
 export const check = createAction(CHECK);
 
 const checkSaga = createRequestSaga(CHECK, authAPI.check);
+
+function checkFailureSaga() {
+  try {
+    localStorage.removeItem('user'); // localStorage에서 user를 제거
+  } catch (e) {
+    console.log('localStorage is not working');
+  }
+}
+
 export function* userSaga() {
   yield takeLatest(CHECK, checkSaga);
+  // CHECK_FAILURE 액션 발생 시, checkFailureSaga() 호출
+  // checkFailureSaga()의 경우, 함수 내에서 yield를 사용하지 않으므로 제네레이터 함수 형태가 아니어도 괜찮다.
+  yield takeLatest(CHECK_FAILURE, checkFailureSaga);
 }
 
 const initialState = {
