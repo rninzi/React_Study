@@ -22,6 +22,23 @@ const PostHead = styled.div`
 const PostContent = styled.div`
   font-size: 1.3125rem;
   color: ${palette.gray[8]};
+
+  /* quill bubble 테마 기준 코드블럭 스타일 */
+  .ql-code-block-container {
+    background-color: #23241f;
+    color: #f8f8f2;
+    overflow: visible;
+    margin: 5px 0;
+    padding: 5px 10px;
+    border-radius: 4px;
+  }
+
+  .ql-code-block {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 0.875em;
+    line-height: 1.45;
+    white-space: pre-wrap;
+  }
 `;
 
 const PostViewer = ({ post, error, loading, actionButtons }) => {
