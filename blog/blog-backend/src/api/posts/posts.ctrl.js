@@ -10,7 +10,9 @@ const sanitizeOption = {
     'h1',
     'h2',
     'b',
+    'strong', // bold
     'i',
+    'em', // italic
     'u',
     's',
     'p',
@@ -20,13 +22,18 @@ const sanitizeOption = {
     'blockquote',
     'a',
     'img',
+    'div', // quill 에디터의 code-block에 필요 (2.0.3 버전)
   ],
   allowedAttributes: {
     a: ['href', 'name', 'target'],
     img: ['src'],
     li: ['class'],
+    div: ['class', 'spellcheck'],
   },
   allowedSchemes: ['data', 'http'],
+  allowedClasses: {
+    div: ['ql-code-block-container', 'ql-code-block'],
+  },
 };
 
 export const getPostById = async (ctx, next) => {
