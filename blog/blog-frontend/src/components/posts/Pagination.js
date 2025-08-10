@@ -17,8 +17,6 @@ const buildLink = ({ username, tag, page }) => {
 };
 
 const Pagination = ({ page, lastPage, username, tag }) => {
-  console.log('Pagination render - page:', page, 'lastPage:', lastPage);
-
   return (
     <PaginationBlock>
       <Button
