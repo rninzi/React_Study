@@ -52,17 +52,23 @@ const Editor = ({ title, body, onChangeField }) => {
       },
     });
 
+    // quill에 text-change 이벤트 핸들러 등록 (https://quilljs.com/docs/api/#events)
     const quill = quillInstance.current;
     quill.on('text-change', (delta, oldDelta, source) => {
       if (source === 'user') {
         onChangeField({ key: 'body', value: quill.root.innerHTML });
       }
     });
-
-    quillInstance.current.setText('');
   }, [onChangeField]);
 
-  const onChangeTitle = (e) => {
+  const mounted = useRef(false);
+  useEffect(() => {
+    if (mounted.current) return;
+    mounted.current = true;
+    quillInstance.current.root.innerHTML = body;
+  }, [body]);
+
+  const onChangeTitle = e => {
     onChangeField({ key: 'title', value: e.target.value });
   };
 
