@@ -13,10 +13,13 @@ import { tempSetUser, check } from './modules/user';
 import { HelmetProvider } from 'react-helmet-async';
 
 const sagaMiddleware = createSagaMiddleware();
-const store = createStore(
-  rootReducer,
-  composeWithDevTools(applyMiddleware(sagaMiddleware)),
-);
+// 개발 환경에서만 reduxDevTools 사용
+const enhancer =
+  process.env.NODE_ENV === 'development'
+    ? composeWithDevTools(applyMiddleware(sagaMiddleware))
+    : applyMiddleware(sagaMiddleware);
+
+const store = createStore(rootReducer, enhancer);
 
 function loadUser() {
   try {
